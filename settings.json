@@ -5,7 +5,9 @@
         "expandFunctionDetails": true,
         "showParameters": true,
         "showVariables": true,
-        "maxContentLines": 50
+        "maxContentLines": 50,
+        "showFolderHierarchy": true,
+        "autoExpandFolders": false
     },
     "navigation": {
         "enableFileOpening": true,
@@ -16,6 +18,7 @@
     },
     "colors": {
         "fileColor": "Green",
+        "folderColor": "Blue",
         "classColor": "Yellow",
         "functionColor": "Magenta",
         "parameterColor": "Cyan",
