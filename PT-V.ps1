@@ -1,5 +1,3 @@
-#Requires -Version 5.1
-
 [CmdletBinding(DefaultParameterSetName='Run')]
 param(
     [Parameter(ParameterSetName='Install')]
@@ -14,7 +12,7 @@ function Install-PowerShellViewer {
         Write-Host "Installing PowerShell Viewer..." -ForegroundColor Yellow
 
         $profileDir = Split-Path $PROFILE -Parent
-        $moduleDir = Join-Path $profileDir "Modules\PowerShellViewer"
+        $moduleDir = Join-Path $profileDir "Modules\PT-V"
 
         if (-not (Test-Path $profileDir)) {
             New-Item -Path $profileDir -ItemType Directory -Force | Out-Null
@@ -27,7 +25,7 @@ function Install-PowerShellViewer {
         $scriptPath = $PSCommandPath
         $settingsPath = Join-Path (Split-Path $scriptPath) "settings.json"
 
-        $targetScriptPath = Join-Path $moduleDir "pwsh-viewer.ps1"
+        $targetScriptPath = Join-Path $moduleDir "PT-V.ps1"
         $targetSettingsPath = Join-Path $moduleDir "settings.json"
 
         Copy-Item -Path $scriptPath -Destination $targetScriptPath -Force
@@ -37,7 +35,7 @@ function Install-PowerShellViewer {
 
         $functionDefinition = @"
 
-function pwsh-viewer {
+function PT-V {
     param([string]`$Path = ".")
     Push-Location `$Path
     try {
@@ -51,19 +49,19 @@ function pwsh-viewer {
 
         if (Test-Path $PROFILE) {
             $profileContent = Get-Content $PROFILE -Raw
-            if ($profileContent -notmatch "function pwsh-viewer") {
+            if ($profileContent -notmatch "function PT-V") {
                 Add-Content -Path $PROFILE -Value $functionDefinition
-                Write-Host "Added pwsh-viewer function to PowerShell profile." -ForegroundColor Green
+                Write-Host "Added PT-V function to PowerShell profile." -ForegroundColor Green
             } else {
-                Write-Host "pwsh-viewer function already exists in profile." -ForegroundColor Yellow
+                Write-Host "PT-V function already exists in profile." -ForegroundColor Yellow
             }
         } else {
             Set-Content -Path $PROFILE -Value $functionDefinition.TrimStart()
-            Write-Host "Created PowerShell profile and added pwsh-viewer function." -ForegroundColor Green
+            Write-Host "Created PowerShell profile and added PT-V function." -ForegroundColor Green
         }
 
         Write-Host "Installation completed successfully!" -ForegroundColor Green
-        Write-Host "You can now use 'pwsh-viewer' from any directory." -ForegroundColor Cyan
+        Write-Host "You can now use 'PT-V' from any directory." -ForegroundColor Cyan
         Write-Host "Restart your PowerShell session or run '. `$PROFILE' to load the function." -ForegroundColor Gray
 
         return
@@ -79,7 +77,7 @@ function Uninstall-PowerShellViewer {
         Write-Host "Uninstalling PowerShell Viewer..." -ForegroundColor Yellow
 
         $profileDir = Split-Path $PROFILE -Parent
-        $moduleDir = Join-Path $profileDir "Modules\PowerShellViewer"
+        $moduleDir = Join-Path $profileDir "Modules\PT-V"
 
         if (Test-Path $moduleDir) {
             Remove-Item -Path $moduleDir -Recurse -Force
@@ -88,7 +86,7 @@ function Uninstall-PowerShellViewer {
 
         if (Test-Path $PROFILE) {
             $profileContent = Get-Content $PROFILE -Raw
-            $updatedContent = $profileContent -replace "(?s)\r?\n?function pwsh-viewer \{.*?\r?\n\}", ""
+            $updatedContent = $profileContent -replace "(?s)\r?\n?function PT-V \{.*?\r?\n\}", ""
             $updatedContent = $updatedContent.Trim()
 
             if ($updatedContent -eq "") {
@@ -96,7 +94,7 @@ function Uninstall-PowerShellViewer {
                 Write-Host "Removed empty PowerShell profile." -ForegroundColor Green
             } else {
                 Set-Content -Path $PROFILE -Value $updatedContent
-                Write-Host "Removed pwsh-viewer function from PowerShell profile." -ForegroundColor Green
+                Write-Host "Removed PT-V function from PowerShell profile." -ForegroundColor Green
             }
         }
 
@@ -135,7 +133,7 @@ class Settings {
             $profilePath = $global:PROFILE
             if ($profilePath) {
                 $profileDir = Split-Path $profilePath -Parent
-                $moduleSettingsPath = Join-Path $profileDir "Modules\PowerShellViewer\settings.json"
+                $moduleSettingsPath = Join-Path $profileDir "Modules\PT-V\settings.json"
                 if (Test-Path $moduleSettingsPath) {
                     $settingsPath = $moduleSettingsPath
                 }

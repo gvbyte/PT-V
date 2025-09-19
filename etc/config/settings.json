@@ -1,0 +1,35 @@
+{
+    "display": {
+        "showFunctionNames": true,
+        "showDataTypes": true,
+        "expandFunctionDetails": true,
+        "showParameters": true,
+        "showVariables": true,
+        "maxContentLines": 50,
+        "showFolderHierarchy": true,
+        "autoExpandFolders": false
+    },
+    "navigation": {
+        "enableFileOpening": true,
+        "defaultEditor": "",
+        "autoExpandFirstLevel": false,
+        "useVimKeys": true,
+        "allowNavigationToggle": true
+    },
+    "colors": {
+        "fileColor": "Green",
+        "folderColor": "Blue",
+        "classColor": "Yellow",
+        "functionColor": "Magenta",
+        "parameterColor": "Cyan",
+        "variableColor": "White",
+        "selectedColor": "Cyan",
+        "errorColor": "Red"
+    },
+    "parsing": {
+        "includePrivateFunctions": true,
+        "includeComments": false,
+        "parseVariableAssignments": true,
+        "parseParameterTypes": true
+    }
+}
